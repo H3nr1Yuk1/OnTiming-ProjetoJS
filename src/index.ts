@@ -4,3 +4,4 @@
 //Inicializando o TypeScript: npx tsc --init
 //Instalar Tsx : npm i tsx -D
 //Chamando tudo que foi instalado: npm i
+//Instalar a extenção no RestClient no VSCode
