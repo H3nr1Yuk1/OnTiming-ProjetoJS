@@ -1,0 +1,1 @@
+//Criação de tarefa: tipo(Bloco de horas ou Rotina) ; Bloco de horas tem Nome, Duração, Categoria e Lembrete. ; Rotina contém tarefas de blocos de hora, nome e duração.
