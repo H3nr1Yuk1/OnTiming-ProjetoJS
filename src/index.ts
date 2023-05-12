@@ -3,12 +3,12 @@
 //Instalar a extenção no RestClient no VSCode
 
 import express from 'express';
-import { Router } from './Config/routes';
+import { router } from './Config/routes';
 
 const app = express();
 
 app.use(express.json());
-app.use(Router);
+app.use(router);
 
 app.listen(3000, function(){
     console.clear();
