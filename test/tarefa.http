@@ -1,0 +1,24 @@
+### Criação de tarefa
+POST http://localhost:3000/tarefas/criar
+Content-Type: application/json
+
+{
+    "nome" : "Trabalhar",
+    "tempoIni" : "12:30",
+    "tempoFim" : "18:00",
+    "categoria" : {
+        "nome" : "Trabalhar",
+        "cor" : "#3fbfbf",
+        "icone" : "maleta-trabalho.png"
+    },
+    "lembrete" : {
+        "popUp" : true,
+        "popUpMsg" : "Bora trabalhar rapaz!!!",
+        "alarme" : true,
+        "alarmeSound" : "morning_flower.mp3",
+        "vibracao" : false,
+        "vibType" : "none",
+        "vibCount" : 0,
+        "notificacao" : "beep.mp3"
+    }
+}
