@@ -4,9 +4,10 @@ import { Categoria } from "./categoria.model";
 import { Lembrete } from "./lembrete.models";
 
 export class Tarefa{
+    id! : number;
     nome! : String;
-    tempoIni! : number;
-    tempoFim! : number;
+    tempoIni! : String;
+    tempoFim! : String;
     categoria! : Categoria;
     lembrete! : Lembrete;
 
