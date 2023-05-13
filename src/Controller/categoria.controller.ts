@@ -16,11 +16,11 @@ export class CategoriaContoller {
         return response;
     }
 
-    listar(request : Request, response : Response) : Response {
+    procurar(request : Request, response : Response) : Response {
         return response;
     }
 
-    procurar(request : Request, response : Response) : Response {
+    listar(request : Request, response : Response) : Response {
         return response;
     }
 }
