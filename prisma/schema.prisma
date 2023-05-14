@@ -6,6 +6,32 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
+
+model categoria {
+  id    Int    @id @default(autoincrement())
+  nome  String
+  cor   String
+  icone String
+}
+
+model lembretePadrao {
+  id   Int    @id @default(autoincrement())
+  nome String
+}
+
+model rotina {
+  id      Int      @id @default(autoincrement())
+  nome    String
+  duracao String
+}
+
+model tarefa {
+  id        Int            @id @default(autoincrement())
+  nome      String
+  tempoIni  String
+  tempoFim  String
+}
+

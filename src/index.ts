@@ -16,3 +16,18 @@ app.listen(3000, function(){
     console.clear();
     console.log("Aplicação rodando na porta 3000");
 });
+
+const categoria = prisma.categoria.create({
+    data:{
+        nome : "Dornmir",
+        cor : "#00fffb",
+        icone : "nuvem.png",
+    }  
+})
+
+const lembrete = prisma.lembretePadrao.create({
+   data:{
+    nome : "Semanal Padrão",
+   } 
+})
+
