@@ -17,6 +17,8 @@ app.listen(3000, function(){
     console.log("Aplicação rodando na porta 3000");
 });
 
+/*
+
 const categoria = prisma.categoria.create({
     data:{
         nome : "Dornmir",
@@ -31,3 +33,4 @@ const lembrete = prisma.lembretePadrao.create({
    } 
 })
 
+*/

@@ -11,25 +11,37 @@ datasource db {
 }
 
 model categoria {
-  id    Int    @id @default(autoincrement())
+  id    Int @id @default(autoincrement())
   nome  String
   cor   String
   icone String
 }
 
+model lembrete {
+    id Int @id @default(autoincrement())
+    popUp Boolean
+    popUpMsg String
+    alarme Boolean
+    alarmeSound String
+    vibracao Boolean
+    vibType String
+    vibCount Int
+    notificacao String
+}
+
 model lembretePadrao {
-  id   Int    @id @default(autoincrement())
+  id   Int @id @default(autoincrement())
   nome String
 }
 
 model rotina {
-  id      Int      @id @default(autoincrement())
+  id      Int @id @default(autoincrement())
   nome    String
   duracao String
 }
 
 model tarefa {
-  id        Int            @id @default(autoincrement())
+  id        Int @id @default(autoincrement())
   nome      String
   tempoIni  String
   tempoFim  String

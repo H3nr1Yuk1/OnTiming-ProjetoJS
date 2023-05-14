@@ -23,4 +23,7 @@ router.get("/rotinas/atualizar/:id", new RotinaController().atualizarTarefas);
 router.get("/rotinas/procurar/:id", new RotinaController().procurar);
 router.get("/rotinas/listar", new RotinaController().listar);
 
+router.post("/lembretes/criar", new CategoriaContoller().criar);
+router.get("/lembretes/remover/:id", new CategoriaContoller().remover);
+
 export { router }

@@ -7,7 +7,6 @@ export class CategoriaContoller {
     criar(request : Request, response : Response) : Response {
         let categoriaNova : Categoria = new Categoria();
 
-        categoriaNova.id = request.body.id;
         categoriaNova.nome = request.body.nome;
         categoriaNova.cor = request.body.cor;
         categoriaNova.icone = request.body.icone;

@@ -1,0 +1,16 @@
+### Criar lembrete
+POST http://localhost:3000/lembretes/criar
+
+{
+    "popUp" : true,
+    "popUpMsg" : "Bora trabalhar rapaz!!!",
+    "alarme" : true,
+    "alarmeSound" : "morning_flower.mp3",
+    "vibracao" : false,
+    "vibType" : "none",
+    "vibCount" : 0,
+    "notificacao" : "beep.mp3"
+}
+
+### Remover lembrete
+GET http://localhost:3000/lembretes/remover/1
