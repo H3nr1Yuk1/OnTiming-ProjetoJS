@@ -10,40 +10,48 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model categoria {
-  id    Int @id @default(autoincrement())
-  nome  String
-  cor   String
-  icone String
+model Categoria {
+  id     Int      @id @default(autoincrement())
+  nome   String
+  cor    String
+  icone  String
+  Tarefa Tarefa[]
 }
 
-model lembrete {
-    id Int @id @default(autoincrement())
-    popUp Boolean
-    popUpMsg String
-    alarme Boolean
-    alarmeSound String
-    vibracao Boolean
-    vibType String
-    vibCount Int
-    notificacao String
+model Lembrete {
+  id          Int      @id @default(autoincrement())
+  popUp       Boolean
+  popUpMsg    String
+  alarme      Boolean
+  alarmeSound String
+  vibracao    Boolean
+  vibType     String
+  vibCount    Int
+  notificacao String
+  Tarefa      Tarefa[]
 }
 
-model lembretePadrao {
-  id   Int @id @default(autoincrement())
+model LembretePadrao {
+  id   Int    @id @default(autoincrement())
   nome String
 }
 
-model rotina {
-  id      Int @id @default(autoincrement())
+model Rotina {
+  id      Int      @id @default(autoincrement())
   nome    String
   duracao String
+  tarefas Tarefa[]
 }
 
-model tarefa {
-  id        Int @id @default(autoincrement())
-  nome      String
-  tempoIni  String
-  tempoFim  String
+model Tarefa {
+  id          Int       @id @default(autoincrement())
+  nome        String
+  tempoIni    String
+  tempoFim    String
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+  lembrete    Lembrete  @relation(fields: [lembreteId], references: [id])
+  Rotina      Rotina?   @relation(fields: [rotinaId], references: [id])
+  rotinaId    Int?
+  categoriaId Int
+  lembreteId  Int
 }
-
