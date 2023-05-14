@@ -12,9 +12,9 @@ datasource db {
 
 model Categoria {
   id     Int      @id @default(autoincrement())
-  nome   String
-  cor    String
-  icone  String
+  nome   String   @unique
+  cor    String   @unique
+  icone  String   @unique
   Tarefa Tarefa[]
 }
 
