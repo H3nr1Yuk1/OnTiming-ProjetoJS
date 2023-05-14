@@ -1,0 +1,112 @@
+### Criar rotina
+POST http://localhost:3000/rotinas/criar
+Content-Type: application/json
+
+{
+    "id" : 1,
+    "nome" : "Semanal Padrão",
+    "duracao" : "Diária",
+    "tarefas" : []
+}
+
+### Remover rotina
+GET http://localhost:3000/rotinas/remover/1
+
+### Atualizar rotina (Tarefas)
+GET http://localhost:3000/rotinas/atualizar/1
+Content-Type: application/json
+
+{
+    "tarefas" : [
+        {
+            "id" : 1,
+            "nome" : "Café da Manhã",
+            "tempoIni" : "09:00",
+            "tempoFim" : "10:30",
+            "categoria" : {
+                "nome" : "Refeição",
+                "cor" : "#f5f242",
+                "icone" : "prato.png"
+            },
+            "lembrete" : {
+                "popUp" : false,
+                "popUpMsg" : "",
+                "alarme" : true,
+                "alarmeSound" : "morning_flower.mp3",
+                "vibracao" : true,
+                "vibType" : "Curto",
+                "vibCount" : 5,
+                "notificacao" : "beep.mp3"
+            }
+        },
+        {
+            "id" : 2,
+            "nome" : "Trabalhar",
+            "tempoIni" : "12:30",
+            "tempoFim" : "18:00",
+            "categoria" : {
+                "nome" : "Trabalhar",
+                "cor" : "#3fbfbf",
+                "icone" : "maleta-trabalho.png"
+            },
+            "lembrete" : {
+                "popUp" : true,
+                "popUpMsg" : "Bora trabalhar rapaz!!!",
+                "alarme" : true,
+                "alarmeSound" : "morning_flower.mp3",
+                "vibracao" : false,
+                "vibType" : "none",
+                "vibCount" : 0,
+                "notificacao" : "beep.mp3"
+            }
+        },
+        {
+            "id" : 3,
+            "nome" : "Ler livro",
+            "tempoIni" : "20:30",
+            "tempoFim" : "21:30",
+            "categoria" : {
+                "nome" : "Lazer",
+                "cor" : "#ffffff",
+                "icone" : "smile_face.png"
+            },
+            "lembrete" : {
+                "popUp" : true,
+                "popUpMsg" : "Hora de ler",
+                "alarme" : false,
+                "alarmeSound" : "",
+                "vibracao" : true,
+                "vibType" : "Longa",
+                "vibCount" : 2,
+                "notificacao" : "beep.mp3"
+            }
+        },
+        {
+            "id" : 4,
+            "nome" : "Dormir",
+            "tempoIni" : "23:00",
+            "tempoFim" : "9:00",
+            "categoria" : {
+                "nome" : "Descanso",
+                "cor" : "#255b85",
+                "icone" : "nuvem.png"
+            },
+            "lembrete" : {
+                "popUp" : true,
+                "popUpMsg" : "Bora descansar que dinheiro não se ganha sozinho.",
+                "alarme" : true,
+                "alarmeSound" : "hino-corintians.mp3",
+                "vibracao" : true,
+                "vibType" : "curta",
+                "vibCount" : 10,
+                "notificacao" : "beep.mp3"
+            }
+        }
+    ]
+}
+
+### Procurar tarefa
+GET http://localhost:3000/rotinas/procurar/1
+
+### Listar rotinas
+GET http://localhost:3000/rotinas/listar
