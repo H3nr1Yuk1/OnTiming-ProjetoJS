@@ -48,7 +48,7 @@ export class TarefaController {
         )
     }
 
-    atualizar(request : Request, response : Response) : Response {
+    atualizarTempo(request : Request, response : Response) : Response {
         const id = String(request.params.id);
 
         for (let tarefa of listaTarefas){
