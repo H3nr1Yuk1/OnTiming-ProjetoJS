@@ -1,11 +1,13 @@
-//Antes de tudo!
-//Chamando tudo que foi instalado: npm i
 //Instalar a extenção no RestClient no VSCode
+//Instalação do Prisma e o adaptando para TypeScript
+//Chamando tudo que foi instalado: npm i
 
 import express from 'express';
 import { router } from './Config/routes';
+import { PrismaClient } from '@prisma/client';
 
 const app = express();
+const prisma = new PrismaClient();
 
 app.use(express.json());
 app.use(router);
