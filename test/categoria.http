@@ -3,7 +3,6 @@ POST http://localhost:3000/categorias/criar
 Content-Type: application/json
 
 {
-    "id" : 2,
     "nome" : "Dormir",
     "cor" : "#00fffb",
     "icone" : "nuvem.png"

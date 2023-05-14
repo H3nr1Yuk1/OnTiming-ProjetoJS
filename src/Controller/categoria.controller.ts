@@ -1,92 +1,169 @@
 import { Request , Response } from "express";
-import { Categoria } from "../Models/categoria.model";
+const { PrismaClient } = require("@prisma/client");
 
-let listaCategoria : Categoria[] = [];
+const prisma = new PrismaClient();
 
 export class CategoriaContoller {
     criar(request : Request, response : Response) : Response {
-        let categoriaNova : Categoria = new Categoria();
-
-        categoriaNova.nome = request.body.nome;
-        categoriaNova.cor = request.body.cor;
-        categoriaNova.icone = request.body.icone;
-
-        for (let categoria of listaCategoria){
-            if(categoriaNova.id === categoria.id ){
-                return response.status(404).json(
-                    {message : "Categoria já existente"}
-                )
+        async function criarCategoria(nome : String, cor : String, icone : String){
+            try{
+                const categoriaNova = await prisma.categoria.create({
+                    data : {
+                        nome : nome,
+                        cor : cor,
+                        icone : icone,
+                    }
+                })
+            } catch (error) {
+                return error;
+            } finally {
+                await prisma.$disconnect();
             }
         }
 
-        listaCategoria.push(categoriaNova);
-        return response.status(201).json(
-            {message : "Categoria criada!", newCategoria : categoriaNova}
-        );
+        const result = criarCategoria(request.body.nome, request.body.cor, request.body.icone);
+
+        if(result != null){
+            return response.status(201).json(
+                {message : "Categoria criada!"}
+            );
+        } else {
+            return response.status(404).json(
+                {message : "Erro!", erro : result}
+            );
+        }
     }
 
     remover(request : Request, response : Response) : Response {
-        const id = request.params.id
-
-        for (let categoria of listaCategoria){
-            if(id === String(categoria.id)){
-                const index : number = listaCategoria.indexOf(categoria);
-                listaCategoria.splice(index, 1);
-
-                return response.status(200).json(
-                    {message : "Categoria apagada!"}
-                );
+        async function removerCategoria(id : number) {
+            try {
+              const categorias = await prisma.categoria.findMany();
+              
+              for (let i = 0; i < categorias.length; i++) {
+                const categoria = categorias[i];
+                if (categoria.id == id){
+                    await prisma.categoria.delete({
+                        where : { id }
+                    })
+                }
+              }
+            } catch (error) {
+              return error;
+            } finally {
+              await prisma.$disconnect();
             }
-        }
+          }
 
-        return response.status(404).json(
-            {message : "Categoria não encontrada!"}
-        )
+        const id = Number(request.params.id)
+        const result = removerCategoria(id);
+
+        if(result != null){
+            return response.status(201).json(
+                {message : "Categoria removida!"}
+            )    
+        } else {
+            return response.status(404).json(
+                {message : "Erro!", erro : result}
+            )
+        }
     }
 
     atualizarCor(request : Request, response : Response) : Response {
-        const id = request.params.id
-
-        for (let categoria of listaCategoria){
-            if(id === String(categoria.id)){
-                categoria.cor = request.body.cor;
-
-                return response.status(200).json(
-                    {message : "Categoria atualizada!", newColor : categoria}
-                );
+        async function atualizarCorCategoria(id : number) {
+            try {
+              const categorias = await prisma.categoria.findMany();
+              
+              for (let i = 0; i < categorias.length; i++) {
+                const categoria = categorias[i];
+                if (categoria.id == id){
+                    await prisma.tarefa.update({
+                        where: { id },
+                        data: { cor : request.body.cor }
+                      });
+                }
+              }
+            } catch (error) {
+              return error;
+            } finally {
+              await prisma.$disconnect();
             }
-        }
+          }
 
-        return response.status(404).json(
-            {message : "Categoria não encontrada!"}
-        )
+        const id = Number(request.params.id)
+        const result = atualizarCorCategoria(id);
+
+        if(result != null){
+            return response.status(201).json(
+                {message : "Categoria atualizada!"}
+            )    
+        } else {
+            return response.status(404).json(
+                {message : "Erro!", erro : result}
+            )
+        }
     }
 
     procurar(request : Request, response : Response) : Response {
-        const id = request.params.id;
-
-        for (let categoria of listaCategoria){
-            if(id === String(categoria.id)){
-                return response.status(200).json(
-                    {message : "Categoria encontrada!", categoriaEncontrada : categoria}
-                );
+        let validar : boolean = false;
+        async function procurarCategoria(id : number) {
+            let categoriaEncontrada = null;
+            try {
+              const categorias = await prisma.categoria.findMany();
+              
+              for (let i = 0; i < categorias.length; i++) {
+                const categoria = categorias[i];
+                if (categoria.id == id){
+                    categoriaEncontrada = await prisma.tarefa.findUnique({
+                        where: { id }
+                    });
+                    validar = true;
+                }
+              }
+            } catch (error) {
+              return error;
+            } finally {
+              await prisma.$disconnect();
+              return categoriaEncontrada;
             }
-        }
+          }
 
-        return response.status(404).json(
-            {message : "Categoria não encontrada!"}
-        )
+        const id = Number(request.params.id)
+        const result = procurarCategoria(id);
+
+        if(validar = true){
+            return response.status(201).json(
+                {message : "Categoria encontrada!"}
+            )    
+        } else {
+            return response.status(404).json(
+                {message : "Erro!", erro : result}
+            )
+        }
     }
 
     listar(request : Request, response : Response) : Response {
-        if (listaCategoria.length != 0){
-            return response.status(200).json(
-                {message : "Lista de categorias", listagem : listaCategoria}
-            )
+        let validar : boolean = false;
+        async function listarCategoria() {
+            try {
+                const categorias = await prisma.categoria.findMany();
+                validar = true;
+            } catch (error) {
+                return error;
+            } finally {
+                await prisma.$disconnect();
+            }
         }
 
-        return response.status(404).json(
-            {message : "Não há categorias!"}
-        )
+        const result = listarCategoria();
+
+        if(validar = true){
+            return response.status(200).json(
+                {message : "Lista de categorias", listagem : result}
+            )
+        } else{
+            return response.status(404).json(
+                {message : "Erro!", erro : result}
+            )
+        }
     }
 }
