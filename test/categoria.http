@@ -1,0 +1,27 @@
+### Criação de categoria
+POST http://localhost:3000/categorias/criar
+Content-Type: application/json
+
+{
+    "id" : 2,
+    "nome" : "Dormir",
+    "cor" : "#00fffb",
+    "icone" : "nuvem.png"
+}
+
+### Remover uma categoria
+GET http://localhost:3000/categorias/remover/1
+
+### Atualizar categoria (Cor)
+GET http://localhost:3000/categorias/atualizar/1
+Content-Type: application/json
+
+{
+    "cor" : "#8ddeeb"
+}
+
+### Procurar categoria
+GET http://localhost:3000/categorias/procurar/1
+
+### Listar categorias
+GET http://localhost:3000/categorias/listar
