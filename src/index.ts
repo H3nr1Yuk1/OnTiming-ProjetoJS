@@ -5,6 +5,7 @@
     //1 - delete o dev.db
     //2 - npx prisma migrate dev
     //3 - npx prisma migrate reset
+    //4 - npx prisma generate
 //Ver banco de dados: https://inloop.github.io/sqlite-viewer/
 
 import express from 'express';
