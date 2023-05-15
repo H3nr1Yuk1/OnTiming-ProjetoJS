@@ -56,7 +56,7 @@ export class CategoriaContoller {
                 const categoria = categorias[i];
                 if (categoria.id == id){
                     await prisma.categoria.delete({
-                        where : { id }
+                        where : { id : categoria.id}
                     })
                     validar = true;
                 }
@@ -71,7 +71,7 @@ export class CategoriaContoller {
         const id = Number(request.params.id)
         const result = await removerCategoria(id);
 
-        if(validar = true && result === null){
+        if(validar = true && result == null){
             return response.status(201).json(
                 {message : "Categoria removida!"}
             )    

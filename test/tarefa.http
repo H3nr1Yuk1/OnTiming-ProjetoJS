@@ -3,32 +3,19 @@ POST http://localhost:3000/tarefas/criar
 Content-Type: application/json
 
 {
-    "id" : 1,
     "nome" : "Trabalhar",
     "tempoIni" : "12:30",
     "tempoFim" : "18:00",
-    "categoria" : {
-        "nome" : "Trabalhar",
-        "cor" : "#3fbfbf",
-        "icone" : "maleta-trabalho.png"
-    },
-    "lembrete" : {
-        "popUp" : true,
-        "popUpMsg" : "Bora trabalhar rapaz!!!",
-        "alarme" : true,
-        "alarmeSound" : "morning_flower.mp3",
-        "vibracao" : false,
-        "vibType" : "none",
-        "vibCount" : 0,
-        "notificacao" : "beep.mp3"
-    }
+    "rotinaId" : null,
+    "categoriaId" : 1,
+    "lembreteId" : null
 }
 
 ### Remoção de uma tarefa
 GET http://localhost:3000/tarefas/remover/1
 
 ### Atualizar uma tarefa (Hora de início e fim)
-GET http://localhost:3000/tarefas/atualizar/1
+GET http://localhost:3000/tarefas/atualizar/tempo/1
 Content-Type: application/json
 
 {

@@ -20,13 +20,13 @@ model Categoria {
 
 model Lembrete {
   id          Int      @id @default(autoincrement())
-  popUp       Boolean
-  popUpMsg    String
-  alarme      Boolean
-  alarmeSound String
-  vibracao    Boolean
-  vibType     String
-  vibCount    Int
+  popUp       Boolean?
+  popUpMsg    String?
+  alarme      Boolean?
+  alarmeSound String?
+  vibracao    Boolean?
+  vibType     String?
+  vibCount    Int?
   notificacao String
   Tarefa      Tarefa[]
 }
@@ -45,13 +45,13 @@ model Rotina {
 
 model Tarefa {
   id          Int       @id @default(autoincrement())
-  nome        String
+  nome        String?
   tempoIni    String
   tempoFim    String
   categoria   Categoria @relation(fields: [categoriaId], references: [id])
-  lembrete    Lembrete  @relation(fields: [lembreteId], references: [id])
+  lembrete    Lembrete?  @relation(fields: [lembreteId], references: [id])
   Rotina      Rotina?   @relation(fields: [rotinaId], references: [id])
   rotinaId    Int?
   categoriaId Int
-  lembreteId  Int
+  lembreteId  Int?
 }
