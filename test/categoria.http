@@ -3,16 +3,16 @@ POST http://localhost:3000/categorias/criar
 Content-Type: application/json
 
 {
-    "nome" : "Dormir",
-    "cor" : "#00fffb",
-    "icone" : "nuvem.png"
+    "nome" : "Acordar",
+    "cor" : "#00fffa",
+    "icone" : "Luz.png"
 }
 
 ### Remover uma categoria
 GET http://localhost:3000/categorias/remover/1
 
 ### Atualizar categoria (Cor)
-GET http://localhost:3000/categorias/atualizar/1
+GET http://localhost:3000/categorias/atualizar/cor/1
 Content-Type: application/json
 
 {

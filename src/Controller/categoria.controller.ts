@@ -4,10 +4,12 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 export class CategoriaContoller {
-    criar(request : Request, response : Response) : Response {
+    async criar(request : Request, response : Response) {
+        let validar : boolean = false;
         async function criarCategoria(nome : String, cor : String, icone : String){
+            let categoriaNova = null;
             try{
-                const categoriaNova = await prisma.categoria.create({
+                categoriaNova = await prisma.categoria.create({
                     data : {
                         nome : nome,
                         cor : cor,
@@ -18,23 +20,34 @@ export class CategoriaContoller {
                 return error;
             } finally {
                 await prisma.$disconnect();
+                if(categoriaNova != false){
+                    validar = true;
+                    return categoriaNova;
+                }
             }
         }
 
-        const result = criarCategoria(request.body.nome, request.body.cor, request.body.icone);
+        const result = await criarCategoria(request.body.nome, request.body.cor, request.body.icone);
 
-        if(result != null){
+        if(validar = true && result != null){
             return response.status(201).json(
-                {message : "Categoria criada!"}
+                {message : "Categoria criada!", categoria : result}
             );
         } else {
-            return response.status(404).json(
-                {message : "Erro!", erro : result}
-            );
+            if (result === null){
+                return response.status(404).json(
+                    {message : "Categoria já existente!"}
+                );
+            } else {
+                return response.status(404).json(
+                    {message : "Erro!", erro : result}
+                );
+            }
         }
     }
 
-    remover(request : Request, response : Response) : Response {
+    async remover(request : Request, response : Response) {
+        let validar : boolean = false;
         async function removerCategoria(id : number) {
             try {
               const categorias = await prisma.categoria.findMany();
@@ -45,6 +58,7 @@ export class CategoriaContoller {
                     await prisma.categoria.delete({
                         where : { id }
                     })
+                    validar = true;
                 }
               }
             } catch (error) {
@@ -55,30 +69,32 @@ export class CategoriaContoller {
           }
 
         const id = Number(request.params.id)
-        const result = removerCategoria(id);
+        const result = await removerCategoria(id);
 
-        if(result != null){
+        if(validar = true && result === null){
             return response.status(201).json(
                 {message : "Categoria removida!"}
             )    
         } else {
             return response.status(404).json(
-                {message : "Erro!", erro : result}
+                {message : "Categoria não existente!"}
             )
         }
     }
 
-    atualizarCor(request : Request, response : Response) : Response {
-        async function atualizarCorCategoria(id : number) {
+    async atualizarCor(request : Request, response : Response) {
+        let validar : boolean = false;
+        async function atualizarCorCategoria(id : number, corNova : String) {
+            let categoriaAtualizada = null;
             try {
               const categorias = await prisma.categoria.findMany();
               
               for (let i = 0; i < categorias.length; i++) {
                 const categoria = categorias[i];
-                if (categoria.id == id){
-                    await prisma.tarefa.update({
-                        where: { id },
-                        data: { cor : request.body.cor }
+                if (categoria.id === id){
+                    categoriaAtualizada = await prisma.categoria.update({
+                        where: { id: categoria.id },
+                        data: { cor: corNova }
                       });
                 }
               }
@@ -86,24 +102,33 @@ export class CategoriaContoller {
               return error;
             } finally {
               await prisma.$disconnect();
+              if(categoriaAtualizada != false){
+                validar = true;
+                return categoriaAtualizada;
+              }
             }
-          }
+        }
 
-        const id = Number(request.params.id)
-        const result = atualizarCorCategoria(id);
+        const result = await atualizarCorCategoria(Number(request.params.id), request.body.cor);
 
-        if(result != null){
+        if(validar = true && result != null){
             return response.status(201).json(
-                {message : "Categoria atualizada!"}
+                {message : "Categoria atualizada!", categoria : result}
             )    
         } else {
-            return response.status(404).json(
-                {message : "Erro!", erro : result}
-            )
+            if(result === null){
+                return response.status(404).json(
+                    {message : "Categoria não existente!"}
+                )
+            } else {
+                return response.status(404).json(
+                    {message : "Erro!", erro : result}
+                )
+            }
         }
     }
 
-    procurar(request : Request, response : Response) : Response {
+    async procurar(request : Request, response : Response) {
         let validar : boolean = false;
         async function procurarCategoria(id : number) {
             let categoriaEncontrada = null;
@@ -112,49 +137,60 @@ export class CategoriaContoller {
               
               for (let i = 0; i < categorias.length; i++) {
                 const categoria = categorias[i];
-                if (categoria.id == id){
-                    categoriaEncontrada = await prisma.tarefa.findUnique({
-                        where: { id }
+                if (categoria.id === id){
+                    categoriaEncontrada = await prisma.categoria.findUnique({
+                        where: { id: categoria.id }
                     });
                     validar = true;
                 }
               }
             } catch (error) {
-              return error;
+                return error;
             } finally {
-              await prisma.$disconnect();
-              return categoriaEncontrada;
+                await prisma.$disconnect();
+                if(categoriaEncontrada != false){
+                    validar = true;
+                    return categoriaEncontrada;
+                  }
             }
           }
 
         const id = Number(request.params.id)
-        const result = procurarCategoria(id);
-
-        if(validar = true){
+        const result = await procurarCategoria(id);
+        
+        if(validar = true && result != null){
             return response.status(201).json(
-                {message : "Categoria encontrada!"}
+                {message : "Categoria encontrada!", categoria : result}
             )    
         } else {
-            return response.status(404).json(
-                {message : "Erro!", erro : result}
-            )
+            if(result === null){
+                return response.status(404).json(
+                    {message : "Categoria não existente!"}
+                )
+            } else {
+                return response.status(404).json(
+                    {message : "Erro!", erro : result}
+                )
+            }
         }
     }
 
-    listar(request : Request, response : Response) : Response {
+    async listar(request : Request, response : Response) {
         let validar : boolean = false;
+        let categorias : any;
         async function listarCategoria() {
             try {
-                const categorias = await prisma.categoria.findMany();
+                categorias = await prisma.categoria.findMany();
                 validar = true;
             } catch (error) {
                 return error;
             } finally {
                 await prisma.$disconnect();
+                return categorias;
             }
         }
 
-        const result = listarCategoria();
+        const result = await listarCategoria();
 
         if(validar = true){
             return response.status(200).json(
