@@ -27,7 +27,7 @@ model Categoria {
   nome      String   @unique
   cor       String   @unique
   icone     String   @unique
-  Tarefa    Tarefa[]
+  tarefa    Tarefa[]
   usuarioId Int
   usuario   Usuario  @relation(fields: [usuarioId], references: [id])
 }
@@ -42,7 +42,7 @@ model Lembrete {
   vibType     String?
   vibCount    Int?
   notificacao String
-  Tarefa      Tarefa[]
+  tarefa      Tarefa[]
   usuarioId   Int
   usuario     Usuario  @relation(fields: [usuarioId], references: [id])
 }
@@ -70,7 +70,7 @@ model Tarefa {
   tempoFim    String
   categoria   Categoria @relation(fields: [categoriaId], references: [id])
   lembrete    Lembrete? @relation(fields: [lembreteId], references: [id])
-  Rotina      Rotina?   @relation(fields: [rotinaId], references: [id])
+  rotina      Rotina?   @relation(fields: [rotinaId], references: [id])
   rotinaId    Int?
   categoriaId Int
   lembreteId  Int?
