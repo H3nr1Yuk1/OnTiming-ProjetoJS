@@ -13,13 +13,13 @@ router.get("/tarefas/listar", new TarefaController().listar);
 
 router.post("/categorias/criar", new CategoriaContoller().criar);
 router.get("/categorias/remover/:id", new CategoriaContoller().remover);
-router.get("/categorias/atualizar/cor/:id", new CategoriaContoller().atualizar);
+router.get("/categorias/atualizar/:id", new CategoriaContoller().atualizar);
 router.get("/categorias/procurar/:id", new CategoriaContoller().procurar);
 router.get("/categorias/listar", new CategoriaContoller().listar);
 
 router.post("/rotinas/criar", new RotinaController().criar);
 router.get("/rotinas/remover/:id", new RotinaController().remover);
-router.get("/rotinas/atualizar/:id", new RotinaController().atualizarTarefas);
+router.get("/rotinas/atualizar/:id", new RotinaController().atualizar);
 router.get("/rotinas/procurar/:id", new RotinaController().procurar);
 router.get("/rotinas/listar", new RotinaController().listar);
 
