@@ -7,7 +7,7 @@ Content-Type: application/json
     "tempoIni" : "12:30",
     "tempoFim" : "18:00",
     "rotinaId" : null,
-    "categoriaId" : 1,
+    "categoriaId" : 3,
     "lembreteId" : null
 }
 
@@ -15,16 +15,20 @@ Content-Type: application/json
 GET http://localhost:3000/tarefas/remover/1
 
 ### Atualizar uma tarefa (Hora de início e fim)
-GET http://localhost:3000/tarefas/atualizar/tempo/1
+GET http://localhost:3000/tarefas/atualizar/3
 Content-Type: application/json
 
 {
+    "nome" : "Trabalhar",
     "tempoIni" : "12:00",
-    "tempoFim" : "19:00"
+    "tempoFim" : "19:00",
+    "rotinaId" : null,
+    "categoriaId" : 3,
+    "lembreteId" : null
 }
 
 ### Procurar uma tarefa
-GET http://localhost:3000/tarefas/procurar/1
+GET http://localhost:3000/tarefas/procurar/2
 
 ### Listar todas as tarefas
 GET http://localhost:3000/tarefas/listar

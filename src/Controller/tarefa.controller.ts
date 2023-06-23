@@ -55,17 +55,10 @@ export class TarefaController {
         let validar : boolean = false;
         async function removerTarefa(id : number) {
             try {
-              const tarefas = await prisma.tarefa.findMany();
-              
-              for (let i = 0; i < tarefas.length; i++) {
-                const tarefa = tarefas[i];
-                if (tarefa.id == id){
-                    await prisma.tarefa.delete({
-                        where : { id : tarefa.id}
-                    })
-                    validar = true;
-                }
-              }
+              await prisma.tarefa.delete({
+                where: {id : id}
+              });
+              validar = true;
             } catch (error) {
               return error;
             } finally {
@@ -75,7 +68,7 @@ export class TarefaController {
 
         const result = await removerTarefa(Number(request.params.id));
 
-        if(validar = true && result == null){
+        if(validar = true){
             return response.status(201).json(
                 {message : "Tarefa removida!"}
             )    
@@ -86,34 +79,34 @@ export class TarefaController {
         }
     }
 
-    async atualizarTempo(request : Request, response : Response) {
+    async atualizar(request : Request, response : Response) {
         let validar : boolean = false;
-        async function atualizaTempoTarefa(id : number, tempoIniNovo : String, tempoFimNovo : String) {
+        async function atualizarTarefa(id : number, nome : String, tempoIni : String, tempoFim : String, rotinaId : number, categoriaId : number, lembreteId : number) {
             let tarefaAtualizada = null;
             try {
-              const tarefas = await prisma.tarefa.findMany();
-              
-              for (let i = 0; i < tarefas.length; i++) {
-                const tarefa = tarefas[i];
-                if (tarefa.id === id){
-                    tarefaAtualizada = await prisma.tarefa.update({
-                        where: { id: tarefa.id },
-                        data: { tempoIni : tempoIniNovo, tempoFim : tempoFimNovo}
-                      });
+              tarefaAtualizada = await prisma.tarefa.update({
+                where: { id : id },
+                data: { 
+                    nome : nome,
+                    tempoIni : tempoIni,
+                    tempoFim : tempoFim,
+                    rotinaId : rotinaId,
+                    categoriaId : categoriaId,
+                    lembreteId : lembreteId,
                 }
-              }
+              });
             } catch (error) {
               return error;
             } finally {
               await prisma.$disconnect();
-              if(tarefaAtualizada != false){
+              if(tarefaAtualizada != null){
                 validar = true;
                 return tarefaAtualizada;
               }
             }
         }
 
-        const result = await atualizaTempoTarefa(Number(request.params.id), request.body.tempoIni, request.body.tempoFim);
+        const result = await atualizarTarefa(Number(request.params.id), request.body.nome,request.body.tempoIni, request.body.tempoFim, request.body.rotinaId, request.body.categoriaId, request.body.lembreteId);
 
         if(validar = true && result != null){
             return response.status(201).json(
@@ -122,7 +115,7 @@ export class TarefaController {
         } else {
             if(result === null){
                 return response.status(404).json(
-                    {message : "Tarefa não existente!"}
+                    {message : "Tarefa não existente!", erro : result}
                 )
             } else {
                 return response.status(404).json(
@@ -137,22 +130,14 @@ export class TarefaController {
         async function procurarTarefa(id : number) {
             let tarefaEncontrada = null;
             try {
-              const tarefas = await prisma.tarefa.findMany();
-              
-              for (let i = 0; i < tarefas.length; i++) {
-                const tarefa = tarefas[i];
-                if (tarefa.id === id){
-                    tarefaEncontrada = await prisma.tarefa.findUnique({
-                        where: { id: tarefa.id }
-                    });
-                    validar = true;
-                }
-              }
+              tarefaEncontrada = await prisma.tarefa.findUnique({
+                where: { id : id }
+              });
             } catch (error) {
                 return error;
             } finally {
                 await prisma.$disconnect();
-                if(tarefaEncontrada != false){
+                if(tarefaEncontrada != null){
                     validar = true;
                     return tarefaEncontrada;
                   }
