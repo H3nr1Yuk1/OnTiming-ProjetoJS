@@ -9,14 +9,16 @@ Content-Type: application/json
 }
 
 ### Remover uma categoria
-GET http://localhost:3000/categorias/remover/1
+GET http://localhost:3000/categorias/remover/2
 
 ### Atualizar categoria (Cor)
-GET http://localhost:3000/categorias/atualizar/cor/1
+GET http://localhost:3000/categorias/atualizar/3
 Content-Type: application/json
 
 {
-    "cor" : "#8ddeeb"
+    "nome" : "Acordar",
+    "cor" : "#8ddeeb",
+    "icone" : "Luz.png"
 }
 
 ### Procurar categoria

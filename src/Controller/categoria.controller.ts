@@ -51,28 +51,20 @@ export class CategoriaContoller {
         let validar : boolean = false;
         async function removerCategoria(id : number) {
             try {
-              const categorias = await prisma.categoria.findMany();
-              
-              for (let i = 0; i < categorias.length; i++) {
-                const categoria = categorias[i];
-                if (categoria.id == id){
-                    await prisma.categoria.delete({
-                        where : { id : categoria.id}
-                    })
-                    validar = true;
-                }
-              }
+                await prisma.categoria.delete({
+                    where : { id : id }
+                })
+                validar = true;
             } catch (error) {
               return error;
             } finally {
               await prisma.$disconnect();
             }
-          }
+        }
 
-        const id = Number(request.params.id)
-        const result = await removerCategoria(id);
+        const result = await removerCategoria(Number(request.params.id));
 
-        if(validar = true && result == null){
+        if(validar = true){
             return response.status(201).json(
                 {message : "Categoria removida!"}
             )    
@@ -85,24 +77,17 @@ export class CategoriaContoller {
 
     async atualizar(request : Request, response : Response) {
         let validar : boolean = false;
-        async function atualizarCategoria(id : number, categoriaNova : Categoria) {
+        async function atualizarCategoria(id : number, nome : String, cor : String, icone : String) {
             let categoriaAtualizada = null;
             try {
-              const categorias = await prisma.categoria.findMany();
-              
-              for (let i = 0; i < categorias.length; i++) {
-                const categoria = categorias[i];
-                if (categoria.id === id){
-                    categoriaAtualizada = await prisma.categoria.update({
-                        where: { id: categoria.id },
-                        data: { 
-                            cor: categoriaNova.cor,
-                            nome: categoriaNova.nome,
-                            icone: categoriaNova.icone
-                         }
-                      });
-                }
-              }
+              const categoriaAtualizada = await prisma.categoria.update({
+                where: {id : id},
+                data: { 
+                    cor: cor,
+                    nome: nome,
+                    icone: icone
+                 }
+              });
             } catch (error) {
               return error;
             } finally {
@@ -114,7 +99,7 @@ export class CategoriaContoller {
             }
         }
 
-        const result = await atualizarCategoria(Number(request.params.id), request.body.categoriaNova);
+        const result = await atualizarCategoria(Number(request.params.id), request.body.nome, request.body.cor, request.body.icone);
 
         if(validar = true && result != null){
             return response.status(201).json(
@@ -138,27 +123,20 @@ export class CategoriaContoller {
         async function procurarCategoria(id : number) {
             let categoriaEncontrada = null;
             try {
-              const categorias = await prisma.categoria.findMany();
-              
-              for (let i = 0; i < categorias.length; i++) {
-                const categoria = categorias[i];
-                if (categoria.id === id){
-                    categoriaEncontrada = await prisma.categoria.findUnique({
-                        where: { id: categoria.id }
-                    });
-                    validar = true;
-                }
-              }
+                categoriaEncontrada = await prisma.categoria.findUnique({
+                where: { id : id}
+              });
+              validar = true;
             } catch (error) {
                 return error;
             } finally {
                 await prisma.$disconnect();
-                if(categoriaEncontrada != false){
+                if(categoriaEncontrada != null){
                     validar = true;
                     return categoriaEncontrada;
-                  }
+                }
             }
-          }
+        }
 
         const id = Number(request.params.id)
         const result = await procurarCategoria(id);
