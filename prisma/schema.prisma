@@ -10,26 +10,12 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model Usuario {
-  id               Int              @id @default(autoincrement())
-  nome             String
-  email            String           @unique
-  senha            String
-  rotinas          Rotina[]
-  tarefas          Tarefa[]
-  categorias       Categoria[]
-  lembretes        Lembrete[]
-  lembretes_padrao LembretePadrao[]
-}
-
 model Categoria {
   id        Int      @id @default(autoincrement())
   nome      String   @unique
   cor       String   @unique
   icone     String   @unique
   tarefa    Tarefa[]
-  usuarioId Int
-  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
 }
 
 model Lembrete {
@@ -43,15 +29,11 @@ model Lembrete {
   vibCount    Int?
   notificacao String
   tarefa      Tarefa[]
-  usuarioId   Int
-  usuario     Usuario  @relation(fields: [usuarioId], references: [id])
 }
 
 model LembretePadrao {
   id        Int     @id @default(autoincrement())
   nome      String
-  usuarioId Int
-  usuario   Usuario @relation(fields: [usuarioId], references: [id])
 }
 
 model Rotina {
@@ -59,8 +41,6 @@ model Rotina {
   nome      String
   duracao   String
   tarefas   Tarefa[]
-  usuarioId Int
-  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
 }
 
 model Tarefa {
@@ -74,6 +54,4 @@ model Tarefa {
   rotinaId    Int?
   categoriaId Int
   lembreteId  Int?
-  usuarioId   Int
-  usuario     Usuario   @relation(fields: [usuarioId], references: [id])
 }
