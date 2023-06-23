@@ -1,4 +1,5 @@
 import { Request , Response } from "express";
+import { Categoria } from "../Models/categoria.model";
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
@@ -20,7 +21,7 @@ export class CategoriaContoller {
                 return error;
             } finally {
                 await prisma.$disconnect();
-                if(categoriaNova != false){
+                if(categoriaNova != null){
                     validar = true;
                     return categoriaNova;
                 }
@@ -82,9 +83,9 @@ export class CategoriaContoller {
         }
     }
 
-    async atualizarCor(request : Request, response : Response) {
+    async atualizar(request : Request, response : Response) {
         let validar : boolean = false;
-        async function atualizarCorCategoria(id : number, corNova : String) {
+        async function atualizarCategoria(id : number, categoriaNova : Categoria) {
             let categoriaAtualizada = null;
             try {
               const categorias = await prisma.categoria.findMany();
@@ -94,7 +95,11 @@ export class CategoriaContoller {
                 if (categoria.id === id){
                     categoriaAtualizada = await prisma.categoria.update({
                         where: { id: categoria.id },
-                        data: { cor: corNova }
+                        data: { 
+                            cor: categoriaNova.cor,
+                            nome: categoriaNova.nome,
+                            icone: categoriaNova.icone
+                         }
                       });
                 }
               }
@@ -102,14 +107,14 @@ export class CategoriaContoller {
               return error;
             } finally {
               await prisma.$disconnect();
-              if(categoriaAtualizada != false){
+              if(categoriaAtualizada != null){
                 validar = true;
                 return categoriaAtualizada;
               }
             }
         }
 
-        const result = await atualizarCorCategoria(Number(request.params.id), request.body.cor);
+        const result = await atualizarCategoria(Number(request.params.id), request.body.categoriaNova);
 
         if(validar = true && result != null){
             return response.status(201).json(

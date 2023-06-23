@@ -13,7 +13,7 @@ router.get("/tarefas/listar", new TarefaController().listar);
 
 router.post("/categorias/criar", new CategoriaContoller().criar);
 router.get("/categorias/remover/:id", new CategoriaContoller().remover);
-router.get("/categorias/atualizar/cor/:id", new CategoriaContoller().atualizarCor);
+router.get("/categorias/atualizar/cor/:id", new CategoriaContoller().atualizar);
 router.get("/categorias/procurar/:id", new CategoriaContoller().procurar);
 router.get("/categorias/listar", new CategoriaContoller().listar);
 
