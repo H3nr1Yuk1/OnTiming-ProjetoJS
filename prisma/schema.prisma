@@ -10,12 +10,26 @@ datasource db {
   url      = "file:./dev.db"
 }
 
+model Usuario {
+  id               Int              @id @default(autoincrement())
+  nome             String
+  email            String           @unique
+  senha            String
+  rotinas          Rotina[]
+  tarefas          Tarefa[]
+  categorias       Categoria[]
+  lembretes        Lembrete[]
+  lembretes_padrao LembretePadrao[]
+}
+
 model Categoria {
-  id     Int      @id @default(autoincrement())
-  nome   String   @unique
-  cor    String   @unique
-  icone  String   @unique
-  Tarefa Tarefa[]
+  id        Int      @id @default(autoincrement())
+  nome      String   @unique
+  cor       String   @unique
+  icone     String   @unique
+  Tarefa    Tarefa[]
+  usuarioId Int
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
 }
 
 model Lembrete {
@@ -29,18 +43,24 @@ model Lembrete {
   vibCount    Int?
   notificacao String
   Tarefa      Tarefa[]
+  usuarioId   Int
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id])
 }
 
 model LembretePadrao {
-  id   Int    @id @default(autoincrement())
-  nome String
+  id        Int     @id @default(autoincrement())
+  nome      String
+  usuarioId Int
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
 }
 
 model Rotina {
-  id      Int      @id @default(autoincrement())
-  nome    String
-  duracao String
-  tarefas Tarefa[]
+  id        Int      @id @default(autoincrement())
+  nome      String
+  duracao   String
+  tarefas   Tarefa[]
+  usuarioId Int
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
 }
 
 model Tarefa {
@@ -49,9 +69,11 @@ model Tarefa {
   tempoIni    String
   tempoFim    String
   categoria   Categoria @relation(fields: [categoriaId], references: [id])
-  lembrete    Lembrete?  @relation(fields: [lembreteId], references: [id])
+  lembrete    Lembrete? @relation(fields: [lembreteId], references: [id])
   Rotina      Rotina?   @relation(fields: [rotinaId], references: [id])
   rotinaId    Int?
   categoriaId Int
   lembreteId  Int?
+  usuarioId   Int
+  usuario     Usuario   @relation(fields: [usuarioId], references: [id])
 }
