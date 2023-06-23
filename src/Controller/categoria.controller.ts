@@ -80,7 +80,7 @@ export class CategoriaContoller {
         async function atualizarCategoria(id : number, nome : String, cor : String, icone : String) {
             let categoriaAtualizada = null;
             try {
-              const categoriaAtualizada = await prisma.categoria.update({
+              categoriaAtualizada = await prisma.categoria.update({
                 where: {id : id},
                 data: { 
                     cor: cor,

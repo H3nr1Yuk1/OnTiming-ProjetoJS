@@ -80,9 +80,8 @@ export class RotinaController {
         let validar : boolean = false;
         async function atualizarRotina(id: number, nome: string, duracao: string) {
             let rotinaAtualizada = null;
-            let validar = false;
             try {
-              const rotinaAtualizada = await prisma.rotina.update({
+              rotinaAtualizada = await prisma.rotina.update({
                 where: { id : id },
                 data : {
                     nome : nome,
