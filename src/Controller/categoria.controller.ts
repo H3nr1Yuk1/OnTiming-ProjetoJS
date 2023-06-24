@@ -1,5 +1,4 @@
 import { Request , Response } from "express";
-import { Categoria } from "../Models/categoria.model";
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
@@ -70,7 +69,7 @@ export class CategoriaContoller {
             )    
         } else {
             return response.status(404).json(
-                {message : "Categoria não existente!"}
+                {message : "Categoria não existente!", erro : result}
             )
         }
     }

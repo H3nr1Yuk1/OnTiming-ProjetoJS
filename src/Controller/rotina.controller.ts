@@ -1,7 +1,5 @@
 import { Request , Response } from "express";
-import { Rotina } from "../Models/rotina.model";
 import { PrismaClient } from "@prisma/client";
-import { Tarefa } from "../Models/tarefa.model";
 
 const prisma = new PrismaClient();
 

@@ -1,5 +1,6 @@
 ### Criar lembrete
 POST http://localhost:3000/lembretes/criar
+Content-Type: application/json
 
 {
     "popUp" : true,
@@ -13,4 +14,25 @@ POST http://localhost:3000/lembretes/criar
 }
 
 ### Remover lembrete
-GET http://localhost:3000/lembretes/remover/1
+GET http://localhost:3000/lembretes/remover/2
+
+### Atualizar lembrete
+GET http://localhost:3000/lembretes/atualizar/1
+Content-Type: application/json
+
+{
+    "popUp" : true,
+    "popUpMsg" : "Bora trabalhar rapaz!!!",
+    "alarme" : true,
+    "alarmeSound" : "morning_flower.mp3",
+    "vibracao" : true,
+    "vibType" : "small",
+    "vibCount" : 5,
+    "notificacao" : "beep.mp3"
+}
+
+### Remover lembrete
+GET http://localhost:3000/lembretes/procurar/2
+
+### Listar lembretes
+GET http://localhost:3000/lembretes/listar

@@ -1,6 +1,4 @@
 import { Request , Response } from "express";
-import { Categoria } from "../Models/categoria.model";
-import { Lembrete } from "../Models/lembrete.models";
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
@@ -115,7 +113,7 @@ export class TarefaController {
         } else {
             if(result === null){
                 return response.status(404).json(
-                    {message : "Tarefa não existente!", erro : result}
+                    {message : "Tarefa não existente!"}
                 )
             } else {
                 return response.status(404).json(
