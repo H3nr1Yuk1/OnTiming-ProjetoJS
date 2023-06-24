@@ -1,0 +1,40 @@
+### Criar lembrete padrão
+POST http://localhost:3000/lembretes_padrao/criar
+Content-Type: application/json
+
+{
+    "nome" : "Simples",
+    "popUp" : true,
+    "popUpMsg" : "Bora trabalhar rapaz!!!",
+    "alarme" : true,
+    "alarmeSound" : "morning_flower.mp3",
+    "vibracao" : false,
+    "vibType" : "none",
+    "vibCount" : 0,
+    "notificacao" : "beep.mp3"
+}
+
+### Remover lembrete
+GET http://localhost:3000/lembretes_padrao/remover/1
+
+### Atualizar lembrete
+GET http://localhost:3000/lembretes_padrao/atualizar/1
+Content-Type: application/json
+
+{
+    "nome" : "Completo",
+    "popUp" : false,
+    "popUpMsg" : "",
+    "alarme" : true,
+    "alarmeSound" : "morning_flower.mp3",
+    "vibracao" : true,
+    "vibType" : "small",
+    "vibCount" : 5,
+    "notificacao" : "beep.mp3"
+}
+
+### Remover lembrete
+GET http://localhost:3000/lembretes_padrao/procurar/1
+
+### Listar lembretes
+GET http://localhost:3000/lembretes_padrao/listar
