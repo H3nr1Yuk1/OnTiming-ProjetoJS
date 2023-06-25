@@ -1,0 +1,27 @@
+.footer {
+    padding-top: 49.8%;
+}
+
+footer {
+    position: absolute;
+    background-color: hsla(0, 0%, 4%, 0.75);
+    color: #fff;
+    width: 100vw;
+}
+
+ul {
+    display: flex;
+    justify-content: space-around;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+a:hover {
+    transition: transform 0.5s ease-in-out, color 0.5s ease-in-out;
+    text-decoration: none;
+    color: aqua;
+}

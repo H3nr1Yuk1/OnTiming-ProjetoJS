@@ -1,3 +1,8 @@
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
 nav {
     display: flex;
     background-color: hsla(0, 0%, 4%, 0.75);
@@ -12,12 +17,12 @@ ul {
 }
 
 li {
-    padding-right: 75px;
     font-size: 17px;
     transition: transform 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 
 .Link {
+    padding-right: 75px;
     color: #fff;
     text-decoration: none;
 }

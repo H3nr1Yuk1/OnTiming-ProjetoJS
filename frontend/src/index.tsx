@@ -5,6 +5,8 @@ import App from "./App";
 import Lembrete from "./pages/lembrete";
 import Tarefa from "./pages/tarefa";
 import Home from "./layouts/home";
+import Rotina from "./pages/rotina";
+import Categoria from "./pages/categoria";
 
 const routes = createBrowserRouter([
     {
@@ -15,12 +17,17 @@ const routes = createBrowserRouter([
           path: "/",
           element: <Home />,
         },{
-          path: "/lembrete",
-          element: <Lembrete />,
-        },
-        {
-         path: "/tarefa",
+          path: "/rotinas",
+          element: <Rotina />,
+        },{
+          path: "/tarefas",
           element: <Tarefa />,
+        },{
+          path: "/categorias",
+          element: <Categoria />,
+        },{
+          path: "/lembretes_padrao",
+          element: <Lembrete />,
         },
       ],
     },
