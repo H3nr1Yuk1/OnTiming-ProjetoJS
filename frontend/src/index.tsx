@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import Lembrete from "./layouts/lembrete";
+import Lembrete from "./pages/lembrete";
+import Tarefa from "./pages/tarefa";
+import Home from "./layouts/home";
 
 const routes = createBrowserRouter([
     {
@@ -10,12 +12,15 @@ const routes = createBrowserRouter([
         element: <App />,
     children: [
         {
-          path: "./lembrete",
+          path: "/",
+          element: <Home />,
+        },{
+          path: "/lembrete",
           element: <Lembrete />,
         },
         {
-         /* path: "/tarefa",
-          element: <Tarefa />,*/
+         path: "/tarefa",
+          element: <Tarefa />,
         },
       ],
     },

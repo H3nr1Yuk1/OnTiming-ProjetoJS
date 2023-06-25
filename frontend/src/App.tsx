@@ -1,9 +1,11 @@
-import  Home  from "./layouts/home";
+import { Outlet } from "react-router-dom";
+import Menu from "./layouts/menu";
 
 function App() {
   return (
     <div>
-      <Home />
+      <Menu />
+      <Outlet />
     </div>
   );
 }

@@ -1,37 +1,40 @@
 body {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
   background-color: #111;
   color: #fff;
 }
 
-.menu {
-  display: flex;
-  justify-content: center;
+.centro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.menu-item {
-  margin: 0 10px;
-  font-size: 24px;
-  color: #fff;
-  cursor: pointer;
+.textAnimate {
+  font-size: 20px;
+  animation: vaivem 20s infinite alternate;
 }
 
-.menu-item a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  color: #fff;
+@keyframes vaivem {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-.menu-item i {
-  font-size: 48px;
-  margin-bottom: 10px;
+.text {
+  padding-top: 20%;
+  font-size: 18px;
 }
 
-.menu-item span {
-  font-size: 16px;
+.text #lastI {
+  text-decoration: underline;
+  font-size: 20px;
+  font-weight: 900;
 }

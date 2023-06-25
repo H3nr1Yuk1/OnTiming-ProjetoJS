@@ -1,4 +1,4 @@
-import "./lembrete.css";
+/* Arrumar */
 
 function Lembrete() {
   return (
