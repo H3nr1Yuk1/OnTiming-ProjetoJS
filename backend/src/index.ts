@@ -14,8 +14,8 @@ const prisma = new PrismaClient();
 app.use(express.json());
 app.use(router);
 
-app.listen(3000, function(){
+app.listen(3001, function(){
     console.clear();
-    console.log("Aplicação rodando na porta 3000");
+    console.log("Aplicação rodando na porta 3001");
 });
 
