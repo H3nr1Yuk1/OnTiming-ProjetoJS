@@ -22,6 +22,8 @@ router.get("/categorias/listar", new CategoriaContoller().listar);
 router.post("/rotinas/criar", new RotinaController().criar);
 router.get("/rotinas/remover/:id", new RotinaController().remover);
 router.get("/rotinas/atualizar/:id", new RotinaController().atualizar);
+router.get("/rotinas/adicionar/:id", new TarefaController().criar);
+router.get("/rotinas/listarTarefas/:id", new TarefaController().procurarPorRotina);
 router.get("/rotinas/procurar/:id", new RotinaController().procurar);
 router.get("/rotinas/listar", new RotinaController().listar);
 

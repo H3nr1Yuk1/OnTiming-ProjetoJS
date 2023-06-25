@@ -1,5 +1,7 @@
 import { Request , Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
+import { Tarefa } from "../Models/tarefa.model";
+import { TarefaController } from "./tarefa.controller";
 
 const prisma = new PrismaClient();
 

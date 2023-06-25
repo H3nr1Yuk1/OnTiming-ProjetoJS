@@ -10,8 +10,8 @@ Content-Type: application/json
 ### Remover rotina
 GET http://localhost:3000/rotinas/remover/3
 
-### Atualizar rotina (Tarefas)
-GET http://localhost:3000/rotinas/atualizar/4
+### Atualizar rotina
+GET http://localhost:3000/rotinas/atualizar/1
 Content-Type: application/json
 
 {
@@ -19,8 +19,24 @@ Content-Type: application/json
     "duracao" : "Mensal"
 }
 
-### Procurar tarefa
-GET http://localhost:3000/rotinas/procurar/4
+### Atualizar rotina (adicionar tarefas)
+GET http://localhost:3000/rotinas/adicionar/2
+Content-Type: application/json
+
+{
+    "nome" : "Trabalhar",
+    "tempoIni" : "12:30",
+    "tempoFim" : "18:00",
+    "rotinaId" : 2,
+    "categoriaId" : 1,
+    "lembreteId" : null
+}
+
+### Procurar rotina
+GET http://localhost:3000/rotinas/procurar/1
+
+### Listar tarefas de rotina
+GET http://localhost:3000/rotinas/listarTarefas/1
 
 ### Listar rotinas
 GET http://localhost:3000/rotinas/listar

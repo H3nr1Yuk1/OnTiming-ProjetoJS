@@ -7,7 +7,7 @@ Content-Type: application/json
     "tempoIni" : "12:30",
     "tempoFim" : "18:00",
     "rotinaId" : null,
-    "categoriaId" : 3,
+    "categoriaId" : 1,
     "lembreteId" : null
 }
 
@@ -23,7 +23,7 @@ Content-Type: application/json
     "tempoIni" : "12:00",
     "tempoFim" : "19:00",
     "rotinaId" : null,
-    "categoriaId" : 3,
+    "categoriaId" : 1,
     "lembreteId" : null
 }
 

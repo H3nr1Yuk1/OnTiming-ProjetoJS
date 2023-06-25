@@ -1,3 +1,4 @@
+import { Tarefa } from "@prisma/client";
 import { Request , Response } from "express";
 const { PrismaClient } = require("@prisma/client");
 
@@ -12,7 +13,7 @@ export class TarefaController {
                 tarefaNova = await prisma.tarefa.create({
                     data : {
                         nome : nome,
-                        tempoIni : tempoIni,
+                        tempoIni : tempoIni,    
                         tempoFim : tempoFim,
                         rotinaId : rotinaId,
                         categoriaId : categoriaId,
@@ -23,7 +24,7 @@ export class TarefaController {
                 return error;
             } finally {
                 await prisma.$disconnect();
-                if(tarefaNova != false){
+                if(tarefaNova != null){
                     validar = true;
                     return tarefaNova;
                 }  
@@ -138,6 +139,44 @@ export class TarefaController {
                 if(tarefaEncontrada != null){
                     validar = true;
                     return tarefaEncontrada;
+                  }
+            }
+          }
+
+        const result = await procurarTarefa(Number(request.params.id));
+        
+        if(validar = true && result != null){
+            return response.status(201).json(
+                {message : "Tarefa encontrada!", tarefa : result}
+            )    
+        } else {
+            if(result === null){
+                return response.status(404).json(
+                    {message : "Tarefa não existente!"}
+                )
+            } else {
+                return response.status(404).json(
+                    {message : "Erro!", erro : result}
+                )
+            }
+        }
+    }
+
+    async procurarPorRotina(request : Request, response : Response) {
+        let validar : boolean = false;
+        async function procurarTarefa(id : number) {
+            let tarefasEncontrada = null;
+            try {
+              tarefasEncontrada = await prisma.tarefa.findMany({
+                where: { rotinaId : id }
+              });
+            } catch (error) {
+                return error;
+            } finally {
+                await prisma.$disconnect();
+                if(tarefasEncontrada != null){
+                    validar = true;
+                    return tarefasEncontrada;
                   }
             }
           }
