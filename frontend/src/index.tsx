@@ -8,6 +8,8 @@ import Home from "./layouts/home";
 import Rotina from "./pages/rotina";
 import Categoria from "./pages/categoria";
 import RotinaAcesso from "./pages/rotinaAcesso";
+import CategoriaAcesso from "./pages/categoriaAcesso"
+import CadastroCategoria from "./pages/cadastrarCategoria";
 
 const routes = createBrowserRouter([
     {
@@ -32,6 +34,12 @@ const routes = createBrowserRouter([
         },{
           path: "/rotinas/acesso/:id",
           element: <RotinaAcesso />
+        },{
+          path: "categorias/acesso/:id",
+          element: <CategoriaAcesso />
+        },{
+          path: "categorias/criar",
+          element: <CadastroCategoria />
         }
       ],
     },
