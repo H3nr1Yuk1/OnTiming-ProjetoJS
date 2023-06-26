@@ -10,6 +10,7 @@ import Categoria from "./pages/categoria";
 import RotinaAcesso from "./pages/rotinaAcesso";
 import CategoriaAcesso from "./pages/categoriaAcesso"
 import CadastroCategoria from "./pages/cadastrarCategoria";
+import RotinaCriar from "./pages/rotinaCriar";
 
 const routes = createBrowserRouter([
     {
@@ -34,6 +35,9 @@ const routes = createBrowserRouter([
         },{
           path: "/rotinas/acesso/:id",
           element: <RotinaAcesso />
+        },{
+          path: "/rotinas/criar",
+          element: <RotinaCriar />
         },{
           path: "categorias/acesso/:id",
           element: <CategoriaAcesso />

@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import { Rotina } from "../Models/rotina.model";
 import axios from "axios";
 import { Tarefa } from "../Models/tarefa.model";
+import { Categoria } from "../Models/categoria.model";
 
 function RotinaAcesso() {
 
     const { id } = useParams();
     const [rotina, setRotina] = useState<Rotina>();
+    const [categoria, setCategoria] = useState<Categoria>();
     const [tarefas, setTarefas] = useState<Tarefa[]>([]);
     
     useEffect(() => {
@@ -48,6 +50,21 @@ function RotinaAcesso() {
         listaTarefas();
     })
 
+    const procurarIdCategoria = async (tarefa) => {
+        try {
+          const resposta = await axios.post('http://localhost:3001/categorias/procurarTarefa', tarefa);
+          setCategoria(resposta.data.categoria);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+    useEffect(() => {
+        tarefas.forEach((tarefa) => {
+            procurarIdCategoria(tarefa);
+        });
+    }, []);
+
     if(!rotina){
         return (
             <div>
@@ -67,7 +84,7 @@ function RotinaAcesso() {
                                 <td>{tarefa.nome}</td>
                                 <td>Das: {tarefa.tempoIni}</td>
                                 <td>Até: {tarefa.tempoFim}</td>
-                                <td></td>
+                                <td>{categoria}</td>
                                 <td>{tarefa.lembrete}</td>
                             </tr>
                         ))}
