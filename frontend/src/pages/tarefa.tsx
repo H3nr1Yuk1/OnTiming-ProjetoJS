@@ -1,26 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import './tarefa.css';
 
-enum DuracaoTipo {
-  Diaria = "Diária",
-  Semanal = "Semanal",
-  Mensal = "Mensal",
-  Customizada = "Customizada",
-}
-
 interface Tarefa {
+  _id: any;
   tipoTarefa: string;
   nome: string;
   duracaoInicio: string;
   duracaoFim: string;
   categoria: string;
   lembrete: string;
-}
-
-interface Rotina {
-  nome: string;
-  duracao: DuracaoTipo;
-  duracaoEspecifica?: string;
 }
 
 function Tarefa() {
@@ -30,11 +19,21 @@ function Tarefa() {
   const [duracaoFim, setDuracaoFim] = useState("");
   const [categoria, setCategoria] = useState("");
   const [lembrete, setLembrete] = useState("");
-  const [rotinaNome, setRotinaNome] = useState("");
-  const [rotinaDuracao, setRotinaDuracao] = useState(DuracaoTipo.Diaria);
-  const [rotinaDuracaoEspecifica, setRotinaDuracaoEspecifica] = useState("");
   const [tarefas, setTarefas] = useState<Tarefa[]>([]);
-  const [rotinas, setRotinas] = useState<Rotina[]>([]);
+
+  useEffect(() => {
+    loadTarefas();
+  }, []);
+
+  const loadTarefas = async () => {
+    try {
+        // Altere aqui o file do axios para conectar com o banco
+      const response = await axios.get("/api/tarefas");
+      setTarefas(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleTipoTarefaChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setTipoTarefa(event.target.value);
@@ -60,61 +59,44 @@ function Tarefa() {
     setLembrete(event.target.value);
   };
 
-  const handleRotinaNomeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRotinaNome(event.target.value);
-  };
-
-  const handleRotinaDuracaoChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setRotinaDuracao(event.target.value as DuracaoTipo);
-  };
-
-  const handleRotinaDuracaoEspecificaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRotinaDuracaoEspecifica(event.target.value);
-  };
-
-  const handleSalvar = () => {
+  const handleSalvar = async () => {
     if (tipoTarefa === "Bloco de Horas") {
       const novaTarefa: Tarefa = {
-        tipoTarefa,
-        nome,
-        duracaoInicio,
-        duracaoFim,
-        categoria,
-        lembrete
+          tipoTarefa,
+          nome,
+          duracaoInicio,
+          duracaoFim,
+          categoria,
+          lembrete,
+          _id: undefined
       };
 
-      setTarefas([...tarefas, novaTarefa]);
-
-      setNome("");
-      setDuracaoInicio("");
-      setDuracaoFim("");
-      setCategoria("");
-      setLembrete("");
-    } else if (tipoTarefa === "Rotina") {
-      const novaRotina: Rotina = {
-        nome: rotinaNome,
-        duracao: rotinaDuracao,
-        duracaoEspecifica: rotinaDuracao === DuracaoTipo.Customizada ? rotinaDuracaoEspecifica : undefined
-      };
-
-      setRotinas([...rotinas, novaRotina]);
-
-      setRotinaNome("");
-      setRotinaDuracao(DuracaoTipo.Diaria);
-      setRotinaDuracaoEspecifica("");
+      try {
+        // Altere aqui o file do axios para conectar com o banco
+        const response = await axios.post("/api/tarefas", novaTarefa);
+        setTarefas([...tarefas, response.data]);
+        setNome("");
+        setDuracaoInicio("");
+        setDuracaoFim("");
+        setCategoria("");
+        setLembrete("");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
-  const handleExcluirTarefa = (index: number) => {
-    const novasTarefas = [...tarefas];
-    novasTarefas.splice(index, 1);
-    setTarefas(novasTarefas);
-  };
-
-  const handleExcluirRotina = (index: number) => {
-    const novasRotinas = [...rotinas];
-    novasRotinas.splice(index, 1);
-    setRotinas(novasRotinas);
+  const handleExcluirTarefa = async (index: number) => {
+    const tarefaId = tarefas[index]._id;
+    try {
+        // Altere aqui o file do axios para conectar com o banco
+      await axios.delete(`/api/tarefas/${tarefaId}`);
+      const novasTarefas = [...tarefas];
+      novasTarefas.splice(index, 1);
+      setTarefas(novasTarefas);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -128,7 +110,6 @@ function Tarefa() {
         <select value={tipoTarefa} onChange={handleTipoTarefaChange}>
           <option value="">Selecione...</option>
           <option value="Bloco de Horas">Bloco de Horas</option>
-          <option value="Rotina">Rotina</option>
         </select>
       </label>
       <br />
@@ -167,35 +148,6 @@ function Tarefa() {
         </>
       )}
 
-      {tipoTarefa === "Rotina" && (
-        <>
-          <label>
-            Nome da Rotina:
-            <input type="text" value={rotinaNome} onChange={handleRotinaNomeChange} />
-          </label>
-          <br />
-
-          <label>
-            Duração da Rotina:
-            <select value={rotinaDuracao} onChange={handleRotinaDuracaoChange}>
-              <option value={DuracaoTipo.Diaria}>Diária</option>
-              <option value={DuracaoTipo.Semanal}>Semanal</option>
-              <option value={DuracaoTipo.Mensal}>Mensal</option>
-              <option value={DuracaoTipo.Customizada}>Customizada</option>
-            </select>
-          </label>
-          <br />
-
-          {rotinaDuracao === DuracaoTipo.Customizada && (
-            <label>
-              Duração Específica:
-              <input type="text" value={rotinaDuracaoEspecifica} onChange={handleRotinaDuracaoEspecificaChange} />
-            </label>
-          )}
-          <br />
-        </>
-      )}
-
       <button onClick={handleSalvar}>Salvar</button>
 
       <h2>Tarefas:</h2>
@@ -208,18 +160,6 @@ function Tarefa() {
           <p>Categoria: {tarefa.categoria}</p>
           <p>Lembrete: {tarefa.lembrete}</p>
           <button onClick={() => handleExcluirTarefa(index)}>Excluir</button>
-        </div>
-      ))}
-
-      <h2>Rotinas:</h2>
-      {rotinas.map((rotina, index) => (
-        <div key={index}>
-          <p>Nome da Rotina: {rotina.nome}</p>
-          <p>Duração da Rotina: {rotina.duracao}</p>
-          {rotina.duracao === DuracaoTipo.Customizada && (
-            <p>Duração Específica: {rotina.duracaoEspecifica}</p>
-          )}
-          <button onClick={() => handleExcluirRotina(index)}>Excluir</button>
         </div>
       ))}
     </div>
