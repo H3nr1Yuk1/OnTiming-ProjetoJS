@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import './tarefa.css';
 
@@ -9,64 +9,77 @@ function Tarefa() {
   const [duracaoFim, setDuracaoFim] = useState("");
   const [categoria, setCategoria] = useState("");
   const [lembrete, setLembrete] = useState("");
-  const [tarefa, setTarefa] = useState<Tarefa>();
+  const [tarefas, setTarefas] = useState([]);
 
   function criarTarefa() {
+    const novaTarefa = {
+      tipoTarefa,
+      nome,
+      duracaoInicio,
+      duracaoFim,
+      categoria,
+      lembrete
+    };
+
     axios
-    .post("http://localhost:3000/tarefas/criar", tarefa)
-    .then((resposta) => {
-      setTarefa(resposta.data.tarefa)
+      .post("http://localhost:3000/tarefas/criar", novaTarefa)
+      .then((resposta: { data: { tarefa: any } }) => {
+      const novaTarefaCriada: any = resposta.data.tarefa;
+      setTarefas([...tarefas, novaTarefaCriada]);
+      limparCampos();
     })
-    .catch((error) => {
-      console.log(error)
-    })
+
+
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
-
-  const handleTipoTarefaChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleTipoTarefaChange = (event : any) => {
     setTipoTarefa(event.target.value);
   };
 
-  const handleNomeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNomeChange = (event : any) => {
     setNome(event.target.value);
   };
 
-  const handleDuracaoInicioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDuracaoInicioChange = (event : any) => {
     setDuracaoInicio(event.target.value);
   };
 
-  const handleDuracaoFimChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDuracaoFimChange = (event : any) => {
     setDuracaoFim(event.target.value);
   };
 
-  const handleCategoriaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCategoriaChange = (event : any) => {
     setCategoria(event.target.value);
   };
 
-  const handleLembreteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLembreteChange = (event : any) => {
     setLembrete(event.target.value);
   };
 
-  function excluirTarefa(){
-    axios
-    .get(`http://localhost:3000/tarefas/remover/${id}`)
-    .then((resposta) => {
-
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  function limparCampos() {
+    setTipoTarefa("");
+    setNome("");
+    setDuracaoInicio("");
+    setDuracaoFim("");
+    setCategoria("");
+    setLembrete("");
   }
 
-  function atualizarTarefa(){
+  function handleExcluirTarefa(index : any) {
+    const tarefaExcluida = tarefas[index];
     axios
-    .get(`http://localhost:3000/tarefas/atualizar/${id}`, tarefa)
-    .then((resposta) => {
-
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+      .get(`http://localhost:3000/tarefas/remover/${tarefaExcluida.id}`)
+      .then(() => {
+        const novasTarefas = [...tarefas];
+        novasTarefas.splice(index, 1);
+        setTarefas(novasTarefas);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
@@ -115,10 +128,10 @@ function Tarefa() {
             <input type="text" value={lembrete} onChange={handleLembreteChange} />
           </label>
           <br />
+
+          <button onClick={criarTarefa}>Salvar</button>
         </>
       )}
-
-      <button onClick={handleSalvar}>Salvar</button>
 
       <h2>Tarefas:</h2>
       {tarefas.map((tarefa, index) => (
