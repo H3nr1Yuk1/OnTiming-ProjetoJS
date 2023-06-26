@@ -19,21 +19,19 @@ function Tarefa() {
   const [duracaoFim, setDuracaoFim] = useState("");
   const [categoria, setCategoria] = useState("");
   const [lembrete, setLembrete] = useState("");
-  const [tarefas, setTarefas] = useState<Tarefa[]>([]);
+  const [tarefa, setTarefa] = useState<Tarefa>();
 
-  useEffect(() => {
-    loadTarefas();
-  }, []);
+  function criarTarefa() {
+    axios
+    .post("http://localhost:3000/tarefas/criar", tarefa)
+    .then((resposta) => {
+      setTarefa(resposta.data.tarefa)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
 
-  const loadTarefas = async () => {
-    try {
-        // Altere aqui o file do axios para conectar com o banco
-      const response = await axios.get("/api/tarefas");
-      setTarefas(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleTipoTarefaChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setTipoTarefa(event.target.value);

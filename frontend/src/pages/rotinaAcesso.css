@@ -1,0 +1,27 @@
+p {
+    padding: 25px;
+}
+
+.ButtonApagar {
+    padding: 10px;
+    background-color: gray;
+    transition: transform 0.5s ease-in-out, background-color 0.5s ease-in-out;
+}
+
+.Button {
+    padding: 25px;
+}
+
+.ButtonApagar:hover {
+    background-color: lightgray;
+    transform: scale(1.1);
+}
+
+.LinkRA {
+    color: black;
+}
+
+.LinkRA:hover {
+    color: black;
+}
+  
