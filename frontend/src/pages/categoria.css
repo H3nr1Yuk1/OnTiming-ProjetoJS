@@ -1,0 +1,32 @@
+.divBtn {
+    padding: 25px;
+}
+
+Link {
+    padding: 10px;
+    background-color: gray;
+    transition: transform 0.5s ease-in-out, background-color 0.5s ease-in-out;
+}
+
+table {
+    color: #fff;
+    border: 2px #fff solid;
+}
+
+td {
+    padding: 25px;
+    border: 2px #fff solid;
+}
+
+.lastTD{
+    padding-left: 100px;
+}
+
+.lastTD:hover{
+    color: aqua;
+}
+
+.ButtonCriar:hover {
+    transform: scale(1.1);
+    background-color: lightgray;
+}
