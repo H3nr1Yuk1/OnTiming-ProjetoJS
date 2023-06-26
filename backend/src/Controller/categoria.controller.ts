@@ -1,4 +1,5 @@
 import { Request , Response } from "express";
+import { Tarefa } from "../Models/tarefa.model";
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
@@ -139,6 +140,45 @@ export class CategoriaContoller {
 
         const id = Number(request.params.id)
         const result = await procurarCategoria(id);
+        
+        if(validar = true && result != null){
+            return response.status(201).json(
+                {message : "Categoria encontrada!", categoria : result}
+            )    
+        } else {
+            if(result === null){
+                return response.status(404).json(
+                    {message : "Categoria não existente!"}
+                )
+            } else {
+                return response.status(404).json(
+                    {message : "Erro!", erro : result}
+                )
+            }
+        }
+    }
+
+    async procurarPorTarefa(request : Request, response : Response) {
+        let validar : boolean = false;
+        async function procurarCategoria(tarefa : any) {
+            let categoriaEncontrada = null;
+            try {
+                categoriaEncontrada = await prisma.categoria.findUnique({
+                where: { categoriaId : tarefa.categoriaId }
+              });
+              validar = true;
+            } catch (error) {
+                return error;
+            } finally {
+                await prisma.$disconnect();
+                if(categoriaEncontrada != null){
+                    validar = true;
+                    return categoriaEncontrada;
+                }
+            }
+        }
+
+        const result = await procurarCategoria(request.body.tarefa);
         
         if(validar = true && result != null){
             return response.status(201).json(

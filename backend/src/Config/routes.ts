@@ -17,6 +17,7 @@ router.post("/categorias/criar", new CategoriaContoller().criar);
 router.get("/categorias/remover/:id", new CategoriaContoller().remover);
 router.get("/categorias/atualizar/:id", new CategoriaContoller().atualizar);
 router.get("/categorias/procurar/:id", new CategoriaContoller().procurar);
+router.get("/categorias/procurarTarefa", new CategoriaContoller().procurarPorTarefa);
 router.get("/categorias/listar", new CategoriaContoller().listar);
 
 router.post("/rotinas/criar", new RotinaController().criar);
