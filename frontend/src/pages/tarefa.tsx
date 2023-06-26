@@ -2,16 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './tarefa.css';
 
-interface Tarefa {
-  _id: any;
-  tipoTarefa: string;
-  nome: string;
-  duracaoInicio: string;
-  duracaoFim: string;
-  categoria: string;
-  lembrete: string;
-}
-
 function Tarefa() {
   const [tipoTarefa, setTipoTarefa] = useState("");
   const [nome, setNome] = useState("");
