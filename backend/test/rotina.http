@@ -20,14 +20,14 @@ Content-Type: application/json
 }
 
 ### Atualizar rotina (adicionar tarefas)
-GET http://localhost:3001/rotinas/adicionar/2
+GET http://localhost:3001/rotinas/adicionar/6
 Content-Type: application/json
 
 {
     "nome" : "Trabalhar",
     "tempoIni" : "12:30",
     "tempoFim" : "18:00",
-    "rotinaId" : 2,
+    "rotinaId" : 6,
     "categoriaId" : 1,
     "lembreteId" : null
 }
