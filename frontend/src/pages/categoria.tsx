@@ -38,7 +38,7 @@ function Categoria() {
                                 <td className="corCategoria" style={{backgroundColor: `${categoria.cor}`}}>{categoria.cor}</td>
                                 <td className="iconeCategoria">{categoria.icone}</td>
                                 <td className="lastTD">
-                                    <Link to={`/categorias/acesso/${categoria.id}`}>Acessar</Link>
+                                    <Link to={`/categorias/acesso/${categoria.id}`}>Editar</Link>
                                 </td>
                             </tr>
                         ))}
