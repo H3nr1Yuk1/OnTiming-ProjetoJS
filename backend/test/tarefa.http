@@ -1,5 +1,5 @@
 ### Criação de tarefa
-POST http://localhost:3000/tarefas/criar
+POST http://localhost:3001/tarefas/criar
 Content-Type: application/json
 
 {
@@ -12,10 +12,10 @@ Content-Type: application/json
 }
 
 ### Remoção de uma tarefa
-GET http://localhost:3000/tarefas/remover/1
+GET http://localhost:3001/tarefas/remover/1
 
 ### Atualizar uma tarefa (Hora de início e fim)
-GET http://localhost:3000/tarefas/atualizar/3
+GET http://localhost:3001/tarefas/atualizar/3
 Content-Type: application/json
 
 {
@@ -28,7 +28,7 @@ Content-Type: application/json
 }
 
 ### Procurar uma tarefa
-GET http://localhost:3000/tarefas/procurar/2
+GET http://localhost:3001/tarefas/procurar/2
 
 ### Listar todas as tarefas
-GET http://localhost:3000/tarefas/listar
+GET http://localhost:3001/tarefas/listar

@@ -1,18 +1,18 @@
 ### Criação de categoria
-POST http://localhost:3000/categorias/criar
+POST http://localhost:3001/categorias/criar
 Content-Type: application/json
 
 {
-    "nome" : "Acordar",
+    "nome" : "Dormir",
     "cor" : "#00fffa",
     "icone" : "Luz.png"
 }
 
 ### Remover uma categoria
-GET http://localhost:3000/categorias/remover/2
+GET http://localhost:3001/categorias/remover/2
 
 ### Atualizar categoria (Cor)
-GET http://localhost:3000/categorias/atualizar/3
+GET http://localhost:3001/categorias/atualizar/3
 Content-Type: application/json
 
 {
@@ -22,7 +22,7 @@ Content-Type: application/json
 }
 
 ### Procurar categoria
-GET http://localhost:3000/categorias/procurar/1
+GET http://localhost:3001/categorias/procurar/1
 
 ### Listar categorias
-GET http://localhost:3000/categorias/listar
+GET http://localhost:3001/categorias/listar
