@@ -67,7 +67,7 @@ function RotinaAcesso() {
                                 <td>{tarefa.nome}</td>
                                 <td>Das: {tarefa.tempoIni}</td>
                                 <td>Até: {tarefa.tempoFim}</td>
-                                <td>{tarefa.categoria}</td>
+                                <td></td>
                                 <td>{tarefa.lembrete}</td>
                             </tr>
                         ))}

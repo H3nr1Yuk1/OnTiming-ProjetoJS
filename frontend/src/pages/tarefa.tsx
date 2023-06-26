@@ -47,45 +47,27 @@ function Tarefa() {
     setLembrete(event.target.value);
   };
 
-  const handleSalvar = async () => {
-    if (tipoTarefa === "Bloco de Horas") {
-      const novaTarefa: Tarefa = {
-          tipoTarefa,
-          nome,
-          duracaoInicio,
-          duracaoFim,
-          categoria,
-          lembrete,
-          _id: undefined
-      };
+  function excluirTarefa(){
+    axios
+    .get(`http://localhost:3000/tarefas/remover/${id}`)
+    .then((resposta) => {
 
-      try {
-        // Altere aqui o file do axios para conectar com o banco
-        const response = await axios.post("/api/tarefas", novaTarefa);
-        setTarefas([...tarefas, response.data]);
-        setNome("");
-        setDuracaoInicio("");
-        setDuracaoFim("");
-        setCategoria("");
-        setLembrete("");
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
 
-  const handleExcluirTarefa = async (index: number) => {
-    const tarefaId = tarefas[index]._id;
-    try {
-        // Altere aqui o file do axios para conectar com o banco
-      await axios.delete(`/api/tarefas/${tarefaId}`);
-      const novasTarefas = [...tarefas];
-      novasTarefas.splice(index, 1);
-      setTarefas(novasTarefas);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  function atualizarTarefa(){
+    axios
+    .get(`http://localhost:3000/tarefas/atualizar/${id}`, tarefa)
+    .then((resposta) => {
+
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
 
   return (
     <div className="tarefa">
